@@ -12,6 +12,17 @@ TESTS := \
     blueporcelain-prefix-sum                                              \
     blueporcelain-matrix-inversion blueporcelain-radix-sort               \
     blueporcelain-merge-sort blueporcelain-nqueen                         \
+    blueporcelain-nn-op-adaptiveavgpool2d blueporcelain-nn-op-batchnorm2d \
+    blueporcelain-nn-op-batchnorm3d blueporcelain-nn-op-conv2d            \
+    blueporcelain-nn-op-conv3d blueporcelain-nn-op-dropout                \
+    blueporcelain-nn-op-embedding blueporcelain-nn-op-gelu                \
+    blueporcelain-nn-op-gru blueporcelain-nn-op-hardsigmoid               \
+    blueporcelain-nn-op-hardswish blueporcelain-nn-op-layernorm           \
+    blueporcelain-nn-op-leakyrelu blueporcelain-nn-op-linear              \
+    blueporcelain-nn-op-lstm blueporcelain-nn-op-maxpool2d                \
+    blueporcelain-nn-op-relu blueporcelain-nn-op-sigmoid                  \
+    blueporcelain-nn-op-silu blueporcelain-nn-op-softmax                  \
+    blueporcelain-nn-op-tanh                                              \
     polybench-2mm polybench-3mm polybench-atax                          \
     polybench-convolution-2d polybench-convolution-3d                   \
     polybench-bicg polybench-mvt polybench-gemm polybench-gesummv       \
@@ -98,5 +109,8 @@ build-%:
 clean-%:
 	$(MAKE) -C $* clean
 
+# `$*` is <driver>-<case>. Split off the driver (no hyphens) and keep the
+# remainder as the case name: case names may contain hyphens (polybench-2mm,
+# blueporcelain-nn-op-tanh), so taking the second word is wrong.
 run-%:
-	$(MAKE) -C $(word 2,$(subst -, ,$*)) run-$(word 1,$(subst -, ,$*))
+	$(MAKE) -C $(patsubst $(firstword $(subst -, ,$*))-%,%,$*) run-$(firstword $(subst -, ,$*))
