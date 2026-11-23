@@ -4,6 +4,32 @@ include $(ROOT_DIR)/config.mk
 # --- master list ------------------------------------------------------
 TESTS := \
     vecadd sgemm conv3 psort saxpy sfilter sgemm2 sgemm3 psum oclprintf \
+    blueporcelain-vectoradd blueporcelain-vectordiv                      \
+    blueporcelain-triangle-area blueporcelain-vectormma                   \
+    blueporcelain-matrix-transpose blueporcelain-bitonic-sort             \
+    blueporcelain-dot-product blueporcelain-reduction-sum                 \
+    blueporcelain-reduction-max blueporcelain-nbody                       \
+    blueporcelain-prefix-sum                                              \
+    blueporcelain-matrix-inversion blueporcelain-radix-sort               \
+    blueporcelain-merge-sort blueporcelain-nqueen                         \
+    polybench-2mm polybench-3mm polybench-atax                          \
+    polybench-convolution-2d polybench-convolution-3d                   \
+    polybench-bicg polybench-mvt polybench-gemm polybench-gesummv       \
+    polybench-syr2k polybench-syrk polybench-correlation                \
+    polybench-covariance polybench-fdtd-2d polybench-gramschmidt        \
+    polybench-doitgen polybench-gemver polybench-lu                     \
+    polybench-adi polybench-jacobi-1d-imper polybench-jacobi-2d-imper   \
+    shoc-bfs shoc-triad shoc-md5hash shoc-md shoc-reduction shoc-scan    \
+    shoc-sort shoc-spmv shoc-stencil2d shoc-gemm                          \
+    parboil-sgemm parboil-spmv parboil-stencil parboil-mri-q             \
+    parboil-lbm parboil-bfs parboil-sad parboil-cutcp                          \
+    parboil-tpacf parboil-histo parboil-mri-gridding                       \
+    rodinia-srad-v2 rodinia-particlefilter-single rodinia-leukocyte        \
+    ventus-conv ventus-gemm ventus-softmax                               \
+    ventus-add ventus-relu ventus-batchnorm2d ventus-pool2d              \
+    ventus-conv-fused ventus-conv-bn ventus-gemm-fused                   \
+    ventus-mnist                                                          \
+    ventus-mnist-conv-tiny ventus-mnist-conv-small                          \
     dotproduct transpose spmv stencil lbm nearn guassian kmeans         \
     blackscholes bfs copybuf codegen histogram atomicreduce             \
     pathfinder nw lud hotspot hotspot3D srad backprop streamcluster     \
@@ -21,6 +47,10 @@ TESTS := \
 # They are excluded from the default sweep and run via their own opencl.yaml
 # block that pins the image-enabled POCL_PATH.
 EXCLUDE := \
+    parboil-bfs \
+    parboil-tpacf \
+    parboil-histo \
+    parboil-mri-gridding \
     transpose \
     lbm       \
     copybuf   \

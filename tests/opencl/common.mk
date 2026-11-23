@@ -149,8 +149,12 @@ else
 	SCOPE_JSON_PATH=$(VORTEX_RT_LIB)/scope.json LD_LIBRARY_PATH=$(XILINX_XRT)/lib:$(OCL_ICD_LIB_DIR):$(POCL_PATH)/lib:$(VORTEX_RT_LIB):$(LLVM_PATH)/lib:$(LD_LIBRARY_PATH) $(POCL_CC_FLAGS) OCL_ICD_VENDORS=$(OCL_ICD_VENDORS) VORTEX_DRIVER=xrt ./$(PROJECT) $(OPTS)
 endif
 
+# -MT is required: gcc derives the target from the source name ("main.o"), but
+# the objects are built as "main.cc.o". Without it the header dependencies would
+# attach to a target that is never built, so editing common.h would silently
+# leave the host program stale.
 .depend: $(SRCS)
-	$(CXX) $(CXXFLAGS) -MM $^ > .depend;
+	$(CXX) $(CXXFLAGS) -MM -MT $(OBJS) $^ > .depend;
 
 clean-kernel:
 	rm -rf *.dump *.ll

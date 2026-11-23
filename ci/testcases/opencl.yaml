@@ -31,6 +31,51 @@ tests:
   xlen:
   - 32
   configs: "-DVX_CFG_EXT_A_ENABLE"
+# parboil-bfs uses atomic_min/atomic_xchg/atomic_add (RVA amo*.w), so it needs
+# the A extension and is excluded from the default run-{driver} sweep above.
+- id: parboil-bfs
+  via: blackbox
+  drivers:
+  - simx
+  - rtlsim
+  app: parboil-bfs
+  xlen:
+  - 64
+  configs: "-DVX_CFG_EXT_A_ENABLE"
+# parboil-tpacf uses local atomic_inc (RVA amo*.w), so it needs the A
+# extension and is excluded from the default run-{driver} sweep above.
+- id: parboil-tpacf
+  via: blackbox
+  drivers:
+  - simx
+  - rtlsim
+  app: parboil-tpacf
+  xlen:
+  - 64
+  configs: "-DVX_CFG_EXT_A_ENABLE"
+# parboil-histo uses local and global atom_add (RVA amo*.w), so it needs the A
+# extension and is excluded from the default run-{driver} sweep above.
+- id: parboil-histo
+  via: blackbox
+  drivers:
+  - simx
+  - rtlsim
+  app: parboil-histo
+  xlen:
+  - 64
+  configs: "-DVX_CFG_EXT_A_ENABLE"
+# parboil-mri-gridding uses global atomics in binning_kernel (RVA amo*.w), so
+# it needs the A extension and is excluded from the default sweep. Its radix
+# sort stage runs on the host (see tests/opencl/parboil-mri-gridding/main.cc).
+- id: parboil-mri-gridding
+  via: blackbox
+  drivers:
+  - simx
+  - rtlsim
+  app: parboil-mri-gridding
+  xlen:
+  - 64
+  configs: "-DVX_CFG_EXT_A_ENABLE"
 # OpenCL image feature tests. These require an image-enabled PoCL-Vortex build
 # (CL_DEVICE_IMAGE_SUPPORT + the vortex scalar read/write_image builtins); point
 # POCL_PATH at that build. Sampling runs in software (no fixed-function TEX), so
