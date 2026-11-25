@@ -1,7 +1,7 @@
 ROOT_DIR := $(realpath ..)
 include $(ROOT_DIR)/config.mk
 
-all: unittest kernel regression opencl riscv
+all: unittest kernel regression opencl opencl-unique riscv
 
 unittest:
 	$(MAKE) -C unittest
@@ -15,6 +15,9 @@ regression:
 opencl:
 	$(MAKE) -C opencl
 
+opencl-unique:
+	$(MAKE) -C opencl-unique
+
 riscv:
 	$(MAKE) -C riscv
 
@@ -23,6 +26,7 @@ clean:
 	$(MAKE) -C kernel clean
 	$(MAKE) -C regression clean
 	$(MAKE) -C opencl clean
+	$(MAKE) -C opencl-unique clean
 	$(MAKE) -C riscv clean
 
-.PHONY: all unittest kernel regression opencl riscv
+.PHONY: all unittest kernel regression opencl opencl-unique riscv

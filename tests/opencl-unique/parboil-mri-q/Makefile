@@ -1,0 +1,18 @@
+ROOT_DIR := $(realpath ../../..)
+include $(ROOT_DIR)/config.mk
+
+PROJECT := parboil-mri-q
+SRC_DIR := $(VORTEX_HOME)/tests/opencl-unique/$(PROJECT)
+SRCS := $(SRC_DIR)/main.cc
+
+common.h: $(SRC_DIR)/common.h
+	cp $< $@
+
+kernel.cl: $(SRC_DIR)/kernel.cl
+	cp $< $@
+
+KERNEL_SRCS := kernel.cl common.h
+
+OPTS ?= -n 64
+
+include ../common.mk
