@@ -35,7 +35,7 @@ build 树并发执行时可能互相覆盖，产生假失败。最终验证是�
 
 | 用例 | 原因 |
 |---|---|
-| `parboil-tpacf` `parboil-histo` `parboil-mri-gridding` `atomicreduce` | 需要 A 扩展；2.2 的 common.mk 不把 `CONFIGS` 传给 app/kernel，需要专用的 EXT_A runtime 重建 |
+| `parboil-tpacf` `parboil-histo` `parboil-mri-gridding` `atomicreduce` | `tpacf` 可通过（移植不含原子内建）；其余三个因 2.2 的 OpenCL C 1.2 内核库缺少 `_cl_atomic_*` 而构建失败，见 RESULTS.md |
 | `image_copy` `image_int` `image_hwsw` | 2.2 PoCL 无 image 支持；`image_hwsw` 还依赖 TEX/RTU |
 | `copybuf` | 2.2 上 host 段错误（3.0 可运行） |
 | `blueporcelain-nqueen` | 2.2 报 `divergent branch` 并中止 |
@@ -74,5 +74,7 @@ build 树并发执行时可能互相覆盖，产生假失败。最终验证是�
 ## 已知限制
 
 - 只验证默认参数；未覆盖非默认尺寸、opae/xrt 后端、fp64。
-- 原子用例未运行（需要专用 EXT_A runtime 重建）。
+- 已重建 EXT_A runtime 尝试原子用例：仅 `tpacf` 通过；`parboil-histo`/
+  `parboil-mri-gridding`/`atomicreduce` 受 OpenCL 1.2 内核库限制，详见 RESULTS.md。
+- **分类结果**（"特殊配置已验证" vs "本版本有问题的测试"）见 RESULTS.md。
 - `common.mk` 中 `.depend` 对多源文件用例的依赖生成问题沿用 2.2 原实现，未修改。

@@ -1,10 +1,10 @@
 # Vortex 2.2 — opencl-unique 测试结果
 
-- 版本：Vortex 2.2，commit `e86eeab8e`（分支 `vortex2.2`）
+- 版本：Vortex 2.2，commit `e86eeab8e`
 - 日期：2026-11-25
 - 构建：`build/`（XLEN=64）、`build32/`（XLEN=32）；驱动：simx、rtlsim
 - 用例：TESTS 84，默认扫描 69，EXCLUDE 15
-- 用例名与顺序与 3.0 的 `tests/opencl-unique` **完全一致**（84/84）
+- 用例名与顺序与 3.0 的 `tests/opencl-unique` 完全一致（84/84）
 
 ## 默认扫描结果
 
@@ -80,32 +80,38 @@
 | `ventus-pool2d` | PASS | PASS | PASS | PASS | 45309/45311 | 46363/46367 |
 | `ventus-relu` | PASS | PASS | PASS | PASS | 32129/32131 | 30775/30777 |
 
-## 失败 / 未运行用例及原因
+## 特殊配置用例（已验证通过，不属于问题）
 
-| case | 原因 |
-|---|---|
-| `atomicreduce` | NOT RUN：需要专用的 EXT_A runtime 重建 |
-| `blueporcelain-nqueen` | FAIL：2.2 报 "divergent branch" 并中止 |
-| `btree` | TIMEOUT：2.2 卡死 |
-| `cfd` | FAIL：host 段错误 |
-| `copybuf` | FAIL：host 段错误 |
-| `image_copy` | FAIL：2.2 PoCL 无 image 支持 |
-| `image_hwsw` | FAIL：2.2 PoCL 无 image 支持，且无 TEX/RTU |
-| `image_int` | FAIL：2.2 PoCL 无 image 支持 |
-| `nw` | FAIL：32 位结果错误（64 位 PASS） |
-| `parboil-histo` | NOT RUN：需要专用的 EXT_A runtime 重建 |
-| `parboil-mri-gridding` | NOT RUN：需要专用的 EXT_A runtime 重建 |
-| `parboil-tpacf` | NOT RUN：需要专用的 EXT_A runtime 重建（2.2 common.mk 不传 CONFIGS） |
-| `rodinia-srad-v2` | FAIL：64 位结果错误（32 位 PASS） |
-| `shoc-sort` | TIMEOUT：2.2 卡死 |
-| `ventus-softmax` | FAIL：结果错误（64 位还会卡死） |
+| case | 说明 | 64 simx | 64 rtlsim | 32 simx | 32 rtlsim |
+|---|---|---|---|---|---|
+| `parboil-tpacf` | 带 EXT_A runtime 通过；其移植不含原子内建，默认 runtime 也能通过 | PASS | PASS | PASS | PASS |
+
+## 本版本有问题的测试
+
+| case | 类别 | 原因 |
+|---|---|---|
+| `atomicreduce` | 工具链限制 | 同上，缺少 `_cl_atomic_add` |
+| `blueporcelain-nqueen` | 模型不兼容 | 2.2 报 divergent branch 并中止 |
+| `btree` | 模型不兼容 | 2.2 卡死 |
+| `cfd` | 运行失败 | host 段错误 |
+| `copybuf` | 运行失败 | 2.2 上 host 段错误（3.0 通过） |
+| `image_copy` | 能力缺失 | 2.2 PoCL 报 no image support |
+| `image_hwsw` | 能力缺失 | 2.2 无 image 支持，且无 TEX/RTU 单元 |
+| `image_int` | 能力缺失 | 2.2 PoCL 报 no image support |
+| `nw` | 模型不兼容 | 32 位结果错误（64 位 PASS） |
+| `parboil-histo` | 工具链限制 | 2.2 PoCL 以 OpenCL C 1.2 编译，内核原子内建缺少 `_cl_atomic_add/min/max` |
+| `parboil-mri-gridding` | 工具链限制 | 同上，缺少 `_cl_atomic_add/_sub`（链接失败） |
+| `rodinia-srad-v2` | 模型不兼容 | 64 位结果错误（32 位 PASS） |
+| `shoc-sort` | 模型不兼容 | 2.2 卡死 |
+| `ventus-softmax` | 模型不兼容 | 结果错误（64 位还会卡死） |
 
 ## 结论与边界
 
 - TESTS 的 84 个用例名称与顺序与 3.0 的 tests/opencl-unique 完全一致。
 - 最终验证按 64 simx -> 64 rtlsim -> 32 simx -> 32 rtlsim 串行执行：2.2 的 kernel/scripts/vxbin.py 把临时文件硬编码为 /tmp/temp_kernel.bin，两个 build 树并发会互相覆盖，产生假失败（vectormma/shoc-triad/triangle-area 已确认）。
 - 默认扫描 69 个；详细逐用例结果见 RESULTS.md。
-- 原子用例未运行；2.2 需要专用的 EXT_A runtime 重建。
 - 2.2 的 simx/rtlsim instrs 不要求相等；结果中保留两侧数值供参考。
+- 已重建 EXT_A runtime 并补跑 4 个原子用例；tpacf 通过，其余三个因 OpenCL 1.2 内核库缺少 _cl_atomic_* 而构建失败。
+- image_* 在 2.2 上明确不受支持，归入本版本的问题清单。
 
 原始数据：`results/v2.2.json`；每个用例的完整日志未入库。
