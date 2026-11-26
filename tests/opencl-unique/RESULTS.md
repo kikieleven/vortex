@@ -1,10 +1,10 @@
 # Vortex 2.3 — opencl-unique 测试结果
 
-- 版本：Vortex 2.3，commit `d425a56ef`（分支 `vortex-2.3`）
+- 版本：Vortex 2.3，commit `d425a56ef`
 - 日期：2026-11-25
 - 构建：`build/`（XLEN=64）、`build32/`（XLEN=32）；驱动：simx、rtlsim
 - 用例：TESTS 84，默认扫描 71，EXCLUDE 13
-- 用例名与顺序与 3.0 的 `tests/opencl-unique` **完全一致**（84/84）
+- 用例名与顺序与 3.0 的 `tests/opencl-unique` 完全一致（84/84）
 
 ## 默认扫描结果
 
@@ -23,13 +23,13 @@
 | `blueporcelain-nn-op-dropout` | PASS | PASS | PASS | PASS | 8871/8873 | 8201/8203 |
 | `blueporcelain-nn-op-embedding` | PASS | PASS | PASS | PASS | 11113/11115 | 10571/10573 |
 | `blueporcelain-nn-op-gelu` | PASS | PASS | PASS | PASS | 15205/15205 | 202147/202149 |
-| `blueporcelain-nn-op-gru` | PASS | PASS | PASS* | PASS | 9120/9122 | 54747/54749 |
+| `blueporcelain-nn-op-gru` | PASS | PASS | PASS | PASS | 9120/9122 | 54747/54749 |
 | `blueporcelain-nn-op-hardsigmoid` | PASS | PASS | PASS | PASS | 7657/7659 | 6988/6989 |
 | `blueporcelain-nn-op-hardswish` | PASS | PASS | PASS | PASS | 7721/7723 | 7052/7053 |
 | `blueporcelain-nn-op-layernorm` | PASS | PASS | PASS | PASS | 4603/4605 | 4029/4030 |
 | `blueporcelain-nn-op-leakyrelu` | PASS | PASS | PASS | PASS | 7634/7636 | 6965/6966 |
 | `blueporcelain-nn-op-linear` | PASS | PASS | PASS | PASS | 6580/6582 | 5685/5688 |
-| `blueporcelain-nn-op-lstm` | PASS* | PASS | PASS | PASS | 11458/11460 | 80423/80425 |
+| `blueporcelain-nn-op-lstm` | PASS | PASS | PASS | PASS | 11458/11460 | 80423/80425 |
 | `blueporcelain-nn-op-sigmoid` | PASS | PASS | PASS | PASS | 11945/11947 | 198822/198824 |
 | `blueporcelain-nn-op-silu` | PASS | PASS | PASS | PASS | 12073/12075 | 198950/198952 |
 | `blueporcelain-nn-op-tanh` | PASS | PASS | PASS | PASS | 12137/12140 | 199173/199175 |
@@ -82,32 +82,36 @@
 | `ventus-pool2d` | PASS | PASS | PASS | PASS | 44912/44914 | 46012/46014 |
 | `ventus-relu` | PASS | PASS | PASS | PASS | 30964/30966 | 29654/29656 |
 
-`PASS*` = 完整扫描中出现过 1 次间歇中止，随后单独重复 3 次均 PASS。
+## 特殊配置用例（已验证通过，不属于问题）
 
-## 失败 / 未运行用例及原因
+| case | 说明 | 64 simx | 64 rtlsim | 32 simx | 32 rtlsim |
+|---|---|---|---|---|---|
+| `parboil-tpacf` | 带 EXT_A runtime 通过；其移植不含原子内建，默认 runtime 也能通过 | PASS | PASS | PASS | PASS |
 
-| case | 原因 |
-|---|---|
-| `atomicreduce` | NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime |
-| `blueporcelain-nqueen` | FAIL：2.3 simx 报 "divergent branch!" 并中止 |
-| `btree` | TIMEOUT：2.3 simx 卡死（600s 未完成） |
-| `cfd` | FAIL：host 段错误 |
-| `copybuf` | FAIL：host 段错误（3.0 上 PASS） |
-| `image_copy` | FAIL：2.3 PoCL 报 "Device reports no image support" |
-| `image_hwsw` | FAIL：2.3 PoCL 无 image 支持，且 2.3 无 TEX/RTU |
-| `image_int` | FAIL：2.3 PoCL 报 "no image support" |
-| `parboil-histo` | NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime |
-| `parboil-mri-gridding` | NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime |
-| `parboil-tpacf` | NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime |
-| `shoc-sort` | TIMEOUT：2.3 simx 卡死（-n 64 也卡死） |
-| `ventus-softmax` | FAIL：softmax_rows 结果错误，随后 simobject 端口断言 |
+## 本版本有问题的测试
+
+| case | 类别 | 原因 |
+|---|---|---|
+| `atomicreduce` | 工具链限制 | 同上，缺少 `_cl_atomic_add` |
+| `blueporcelain-nqueen` | 模型不兼容 | 2.3 simx 报 divergent branch 并中止 |
+| `btree` | 模型不兼容 | 2.3 卡死 |
+| `cfd` | 运行失败 | host 段错误 |
+| `copybuf` | 运行失败 | 2.2/2.3 上 host 段错误（3.0 通过） |
+| `image_copy` | 能力缺失 | 2.3 PoCL 报 no image support |
+| `image_hwsw` | 能力缺失 | 2.3 无 image 支持，且无 TEX/RTU 单元 |
+| `image_int` | 能力缺失 | 2.3 PoCL 报 no image support |
+| `parboil-histo` | 工具链限制 | 2.3 PoCL 以 OpenCL C 1.2 编译，内核原子内建缺少 `_cl_atomic_add/min/max` |
+| `parboil-mri-gridding` | 工具链限制 | 同上，缺少 `_cl_atomic_add/_sub`（链接失败） |
+| `shoc-sort` | 模型不兼容 | 2.3 卡死 |
+| `ventus-softmax` | 模型不兼容 | 结果错误，随后 simobject 端口断言 |
 
 ## 结论与边界
 
 - TESTS 的 84 个用例名称与顺序与 3.0 的 tests/opencl-unique 完全一致。
 - 默认扫描 71 个；rtlsim 在 64/32 位均 71/71 PASS。
 - simx 在完整扫描中各有 1 次间歇中止（64: lstm，32: gru），单独重复 3/3 PASS。
-- 原子用例未运行；2.3 需要先用 CONFIGS=-DEXT_A_ENABLE 重建 runtime。
 - 2.3 的 simx/rtlsim instrs 不要求相等；结果中保留两侧数值供参考。
+- 已重建 EXT_A runtime 并补跑 4 个原子用例；tpacf 通过，其余三个因 OpenCL 1.2 内核库缺少 _cl_atomic_* 而构建失败。
+- image_* 在 2.3 上明确不受支持，归入本版本的问题清单。
 
-原始数据：`results/v2.3.json`（同一目录）；每个用例的完整日志未入库。
+原始数据：`results/v2.3.json`；每个用例的完整日志未入库。

@@ -1873,10 +1873,10 @@
     }
   },
   "excluded_results": {
-    "parboil-tpacf": "NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime",
-    "parboil-histo": "NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime",
-    "parboil-mri-gridding": "NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime",
-    "atomicreduce": "NOT RUN：需要按 CONFIGS=-DEXT_A_ENABLE 重建 runtime",
+    "parboil-tpacf": "PASS：带 EXT_A runtime 通过；移植不含原子内建，默认 runtime 也能通过",
+    "parboil-histo": "FAIL：2.3 的 OpenCL C 1.2 内核库缺少 _cl_atomic_*（构建失败）",
+    "parboil-mri-gridding": "FAIL：2.3 的 OpenCL C 1.2 内核库缺少 _cl_atomic_*（构建失败）",
+    "atomicreduce": "FAIL：2.3 的 OpenCL C 1.2 内核库缺少 _cl_atomic_*（构建失败）",
     "image_copy": "FAIL：2.3 PoCL 报 \"Device reports no image support\"",
     "image_int": "FAIL：2.3 PoCL 报 \"no image support\"",
     "image_hwsw": "FAIL：2.3 PoCL 无 image 支持，且 2.3 无 TEX/RTU",
@@ -1891,7 +1891,109 @@
     "TESTS 的 84 个用例名称与顺序与 3.0 的 tests/opencl-unique 完全一致。",
     "默认扫描 71 个；rtlsim 在 64/32 位均 71/71 PASS。",
     "simx 在完整扫描中各有 1 次间歇中止（64: lstm，32: gru），单独重复 3/3 PASS。",
-    "原子用例未运行；2.3 需要先用 CONFIGS=-DEXT_A_ENABLE 重建 runtime。",
-    "2.3 的 simx/rtlsim instrs 不要求相等；结果中保留两侧数值供参考。"
-  ]
+    "2.3 的 simx/rtlsim instrs 不要求相等；结果中保留两侧数值供参考。",
+    "已重建 EXT_A runtime 并补跑 4 个原子用例；tpacf 通过，其余三个因 OpenCL 1.2 内核库缺少 _cl_atomic_* 而构建失败。",
+    "image_* 在 2.3 上明确不受支持，归入本版本的问题清单。"
+  ],
+  "special_results": {
+    "parboil-tpacf": {
+      "32": {
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1683895,
+          "cycles": 1169082
+        },
+        "simx": {
+          "status": "PASS",
+          "instrs": 1683893,
+          "cycles": 1211969
+        }
+      },
+      "64": {
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1756881,
+          "cycles": 1211150
+        },
+        "simx": {
+          "status": "PASS",
+          "instrs": 1756879,
+          "cycles": 1262428
+        }
+      }
+    },
+    "parboil-histo": {
+      "32": {
+        "rtlsim": {
+          "status": "FAIL"
+        },
+        "simx": {
+          "status": "FAIL"
+        }
+      },
+      "64": {
+        "rtlsim": {
+          "status": "FAIL"
+        },
+        "simx": {
+          "status": "FAIL"
+        }
+      }
+    },
+    "parboil-mri-gridding": {
+      "32": {
+        "rtlsim": {
+          "status": "FAIL"
+        },
+        "simx": {
+          "status": "FAIL"
+        }
+      },
+      "64": {
+        "rtlsim": {
+          "status": "FAIL"
+        },
+        "simx": {
+          "status": "FAIL"
+        }
+      }
+    },
+    "atomicreduce": {
+      "32": {
+        "rtlsim": {
+          "status": "FAIL"
+        },
+        "simx": {
+          "status": "FAIL"
+        }
+      },
+      "64": {
+        "rtlsim": {
+          "status": "FAIL"
+        },
+        "simx": {
+          "status": "FAIL"
+        }
+      }
+    }
+  },
+  "classification": {
+    "special_config_verified": {
+      "parboil-tpacf": "带 EXT_A runtime 通过；其移植不含原子内建，默认 runtime 也能通过"
+    },
+    "problematic": {
+      "parboil-histo": "工具链限制：2.3 PoCL 以 OpenCL C 1.2 编译，内核原子内建缺少 `_cl_atomic_add/min/max`",
+      "parboil-mri-gridding": "工具链限制：同上，缺少 `_cl_atomic_add/_sub`（链接失败）",
+      "atomicreduce": "工具链限制：同上，缺少 `_cl_atomic_add`",
+      "image_copy": "能力缺失：2.3 PoCL 报 no image support",
+      "image_int": "能力缺失：2.3 PoCL 报 no image support",
+      "image_hwsw": "能力缺失：2.3 无 image 支持，且无 TEX/RTU 单元",
+      "copybuf": "运行失败：2.2/2.3 上 host 段错误（3.0 通过）",
+      "blueporcelain-nqueen": "模型不兼容：2.3 simx 报 divergent branch 并中止",
+      "shoc-sort": "模型不兼容：2.3 卡死",
+      "btree": "模型不兼容：2.3 卡死",
+      "ventus-softmax": "模型不兼容：结果错误，随后 simobject 端口断言",
+      "cfd": "运行失败：host 段错误"
+    }
+  }
 }

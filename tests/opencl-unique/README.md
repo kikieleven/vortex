@@ -31,7 +31,7 @@ make -C tests/opencl-unique/blueporcelain-vectoradd run-simx
 
 | 用例 | 原因 |
 |---|---|
-| `parboil-tpacf` `parboil-histo` `parboil-mri-gridding` `atomicreduce` | 需要 A 扩展：`CONFIGS="-DEXT_A_ENABLE"`（2.3 的宏名） |
+| `parboil-tpacf` `parboil-histo` `parboil-mri-gridding` `atomicreduce` | `tpacf` 可通过（移植不含原子内建）；其余三个因 2.3 的 OpenCL C 1.2 内核库缺少 `_cl_atomic_*` 而构建失败，见 RESULTS.md |
 | `image_copy` `image_int` `image_hwsw` | 2.3 PoCL 报 `Device reports no image support`；`image_hwsw` 还依赖 TEX/RTU，而 2.3 没有这些单元 |
 | `copybuf` | 2.3 上 host 段错误（3.0 上可运行） |
 | `blueporcelain-nqueen` | 2.3 simx 报 `divergent branch!` 并中止（3.0 可运行） |
@@ -61,14 +61,17 @@ make -C tests/opencl-unique/blueporcelain-vectoradd run-simx
   **rtlsim 均为 71/71 PASS**；
 - simx 在两个树中各有 1 次**间歇性中止**（64 位 `blueporcelain-nn-op-lstm`、
   32 位 `blueporcelain-nn-op-gru`），单独重复 3 次均 PASS；
-- 13 个 EXCLUDE 用例的结果与原因见 RESULTS.md（原子类未运行，image/copybuf
-  失败，另有 5 个 2.3 模型不兼容用例）；
+- 13 个 EXCLUDE 用例的结果与原因见 RESULTS.md：`tpacf` 为特殊配置且通过；
+  其余包括 3 个 OpenCL 1.2 内核库限制、3 个 image 能力缺失、`copybuf` 运行失败，
+  以及 5 个 2.3 模型不兼容用例；
+- **分类结果**（"特殊配置已验证" vs "本版本有问题的测试"）见 RESULTS.md；
 - 2.3 的 simx/rtlsim `instrs` 不保证相等，结果中保留两侧数值供跨版本对比。
 
 ## 已知限制
 
 - 只验证默认参数；未覆盖非默认尺寸、opae/xrt 后端、fp64。
-- 原子用例需要先按 `CONFIGS="-DEXT_A_ENABLE"` 重建 runtime，未纳入默认验证。
+- 已重建 EXT_A runtime 尝试原子用例：仅 `tpacf` 通过；`parboil-histo`/
+  `parboil-mri-gridding`/`atomicreduce` 受 OpenCL 1.2 内核库限制，详见 RESULTS.md。
 - 2.3 没有 TEX/RTU 单元，`image_hwsw` 无法运行；`image_copy`/`image_int` 取决于
   PoCL 的 image 支持。
 - `common.mk` 中 `.depend` 对多源文件用例的依赖生成问题沿用 2.3 原实现，未修改。
