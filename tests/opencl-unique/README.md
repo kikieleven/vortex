@@ -81,7 +81,8 @@ make -C tests/opencl-unique/parboil-histo run-simx \
 
 ## 验证结果（XLEN=64 和 XLEN=32）
 
-详细逐用例结果见 [`RESULTS.md`](RESULTS.md)，机器可读数据见
+详细逐用例结果见 [`RESULTS.md`](RESULTS.md)，84 个用例按类型（Basic/Advanced）
+的分类记录见 [`CLASSIFICATION.md`](CLASSIFICATION.md)，机器可读数据见
 [`results/v3.0.json`](results/v3.0.json)。摘要（2026-11-26 复测）：
 
 - 默认扫描：**76/76 PASSED**（simx/rtlsim × 64/32 四种组合）；
