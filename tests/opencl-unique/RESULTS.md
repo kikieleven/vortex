@@ -93,17 +93,28 @@
 | case | 类别 | 原因 |
 |---|---|---|
 | `atomicreduce` | 工具链限制 | 同上，缺少 `_cl_atomic_add` |
-| `blueporcelain-nqueen` | 模型不兼容 | 2.3 simx 报 divergent branch 并中止 |
-| `btree` | 模型不兼容 | 2.3 卡死 |
-| `cfd` | 运行失败 | host 段错误 |
-| `copybuf` | 运行失败 | 2.2/2.3 上 host 段错误（3.0 通过） |
+| `blueporcelain-nqueen` | 模型不兼容 | 2.3 simx 发散中止；rtlsim 结果错 1（92 vs 82），2.3 模型 bug |
+| `btree` | 模型不兼容 | 2.3 simx 卡死；rtlsim 调度器 stall timeout（死锁） |
+| `cfd` | 运行失败 | 2.3 PoCL clEnqueueCopyBuffer 路径 NULL 调用 |
+| `copybuf` | 运行失败 | 2.3 PoCL clEnqueueCopyBuffer 路径 NULL 调用 |
 | `image_copy` | 能力缺失 | 2.3 PoCL 报 no image support |
 | `image_hwsw` | 能力缺失 | 2.3 无 image 支持，且无 TEX/RTU 单元 |
 | `image_int` | 能力缺失 | 2.3 PoCL 报 no image support |
 | `parboil-histo` | 工具链限制 | 2.3 PoCL 以 OpenCL C 1.2 编译，内核原子内建缺少 `_cl_atomic_add/min/max` |
 | `parboil-mri-gridding` | 工具链限制 | 同上，缺少 `_cl_atomic_add/_sub`（链接失败） |
-| `shoc-sort` | 模型不兼容 | 2.3 卡死 |
-| `ventus-softmax` | 模型不兼容 | 结果错误，随后 simobject 端口断言 |
+| `shoc-sort` | 模型不兼容 | 2.3 simx 卡死；rtlsim 调度器 stall timeout（死锁） |
+| `ventus-softmax` | 模型不兼容 | 2.3 simx 结果错误（归一化因子=最大指数项）并触发 simobject 断言；rtlsim PASS |
+
+## 失败原因分析（能力缺失/原子之外）
+
+| case | simx | rtlsim | 证据与结论 | 置信度 |
+|---|---|---|---|---|
+| `blueporcelain-nqueen` | divergent branch! PC=0x80000194 并 abort | FAILED! - 1（期望 92，实际 82） | 2.3 simx execute.cpp:446 要求同一 warp 活跃 lane 的分支结果一致；保留的内核 ELF 反汇编显示该 PC 位于回溯 while(i>=0) 的条件分支（0x80000190 bltz，循环体 0x80000194），每个 work-item 回溯深度不同，必然发散。 2.3 simx 的发散限制 + RTL 发散执行错误；测试本身在 3.0 双驱动通过。 | 高（simx 已定位到源码/反汇编；RTL 具体缺陷未定位） |
+| `btree` | 卡死（>150s） | VX_schedule.sv:415 stall timeout 断言（cycle 414351） | 同 shoc-sort；barrier 位于统一 for(height) 循环，work-group=ORDER=16，无发散 barrier。 2.3 调度/RTL 死锁；3.0 双驱动通过。 | 中（同 shoc-sort） |
+| `cfd` | Segmentation fault | Segmentation fault | gdb 栈：NULL 调用，pocl_exec_command -> vortex_command_scheduler -> pocl_vortex_submit -> clEnqueueCopyBuffer -> main。 2.3 PoCL Vortex 设备的 CopyBuffer 路径 NULL 回调；测试只调用标准 OpenCL API。 | 高（gdb 栈） |
+| `copybuf` | Segmentation fault | Segmentation fault | gdb 栈与 cfd 相同（test_basic_copy -> clEnqueueCopyBuffer -> ... NULL）。 同一 PoCL/runtime CopyBuffer bug；测试有效。 | 高（gdb 栈） |
+| `shoc-sort` | 卡死（>150s，100% CPU） | VX_schedule.sv:415 stall timeout 断言（cycle 888165） | RTL 断言为“所有 warp stalled 超时”；NUM_BARRIERS 由 2 改为 8 重建后断言周期完全相同，排除 barrier ID 不足；内核 barrier 均位于统一循环（window += local_size），无发散 barrier。 2.3 调度/内存/同步路径的死锁（模型/RTL bug）；3.0 双驱动通过。 | 中（死锁确认；内部根因未定位） |
+| `ventus-softmax` | rows 结果错误，随后 chw 触发 simobject 端口断言 | PASS（64/32 位） | N=8/16/32/64 下 rows 全部错误，且实际值恰为 e_j/e_max（实际最大值=1.0，期望最大值 0.582595），即归一化因子被当作最大指数项；同一 ELF 在 rtlsim 上正确。 2.3 simx 执行/FP 语义 bug；测试有效。 | 高（rtlsim 对照 + 数值规律；simx 内部指令未定位） |
 
 ## 结论与边界
 
@@ -113,5 +124,6 @@
 - 2.3 的 simx/rtlsim instrs 不要求相等；结果中保留两侧数值供参考。
 - 已重建 EXT_A runtime 并补跑 4 个原子用例；tpacf 通过，其余三个因 OpenCL 1.2 内核库缺少 _cl_atomic_* 而构建失败。
 - image_* 在 2.3 上明确不受支持，归入本版本的问题清单。
+- 失败原因分析：nqueen 为 2.3 simx 发散限制 + RTL 发散执行错误；sort/btree 为 2.3 调度死锁；softmax 为 2.3 simx 执行语义 bug（rtlsim 正确）；cfd/copybuf 为 PoCL CopyBuffer NULL 调用。详见 diagnosis。
 
 原始数据：`results/v2.3.json`；每个用例的完整日志未入库。
