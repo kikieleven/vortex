@@ -111,5 +111,6 @@
 - 8 个 EXCLUDE 用例已手工补跑：原子类带 CONFIGS=-DVX_CFG_EXT_A_ENABLE，image/copybuf 直接用默认配置，均 PASS。
 - 3.0 的 simx/rtlsim instrs 在确定性用例上完全一致（原子用例除外；本套 EXCLUDE 中 copybuf 的 instrs=0）。
 - 本版本没有被判定为有问题的测试；8 个 EXCLUDE 均为特殊配置且已全部通过。
+- 本版本没有被判定为有问题的测试；8 个 EXCLUDE 均为特殊配置且已全部通过，因此没有失败原因分析。
 
 原始数据：`results/v3.0.json`；每个用例的完整日志未入库。
