@@ -1841,7 +1841,8 @@
     "默认扫描 69 个；详细逐用例结果见 RESULTS.md。",
     "2.2 的 simx/rtlsim instrs 不要求相等；结果中保留两侧数值供参考。",
     "已重建 EXT_A runtime 并补跑 4 个原子用例；tpacf 通过，其余三个因 OpenCL 1.2 内核库缺少 _cl_atomic_* 而构建失败。",
-    "image_* 在 2.2 上明确不受支持，归入本版本的问题清单。"
+    "image_* 在 2.2 上明确不受支持，归入本版本的问题清单。",
+    "失败原因分析：nqueen/sort/btree/softmax 与 2.3 同类；srad-v2 为 2.2 64 位 simx FP 模型 bug；nw 为 2.2 32 位 simx 整数/DP 模型 bug；cfd/copybuf 为 PoCL CopyBuffer NULL 调用。详见 diagnosis。"
   ],
   "special_results": {
     "parboil-tpacf": {
@@ -1936,14 +1937,72 @@
       "image_copy": "能力缺失：2.2 PoCL 报 no image support",
       "image_int": "能力缺失：2.2 PoCL 报 no image support",
       "image_hwsw": "能力缺失：2.2 无 image 支持，且无 TEX/RTU 单元",
-      "copybuf": "运行失败：2.2 上 host 段错误（3.0 通过）",
-      "blueporcelain-nqueen": "模型不兼容：2.2 报 divergent branch 并中止",
-      "shoc-sort": "模型不兼容：2.2 卡死",
-      "btree": "模型不兼容：2.2 卡死",
-      "ventus-softmax": "模型不兼容：结果错误（64 位还会卡死）",
-      "cfd": "运行失败：host 段错误",
-      "rodinia-srad-v2": "模型不兼容：64 位结果错误（32 位 PASS）",
-      "nw": "模型不兼容：32 位结果错误（64 位 PASS）"
+      "copybuf": "运行失败：2.2 PoCL clEnqueueCopyBuffer 路径 NULL 调用",
+      "blueporcelain-nqueen": "模型不兼容：2.2 simx 发散中止；rtlsim 结果错 1（92 vs 82）",
+      "shoc-sort": "模型不兼容：2.2 simx 卡死；rtlsim 调度器 stall timeout（死锁）",
+      "btree": "模型不兼容：2.2 simx 卡死；rtlsim 调度器 stall timeout（死锁）",
+      "ventus-softmax": "模型不兼容：2.2 simx 结果错误（归一化因子=最大指数项）；rtlsim PASS",
+      "cfd": "运行失败：2.2 PoCL clEnqueueCopyBuffer 路径 NULL 调用",
+      "rodinia-srad-v2": "模型不兼容：2.2 64 位 simx 结果错误；32 位 simx 与 64 位 rtlsim 均 PASS",
+      "nw": "模型不兼容：2.2 32 位 simx 结果错误；64 位 simx 与 32 位 rtlsim 均 PASS"
+    }
+  },
+  "diagnosis": {
+    "blueporcelain-nqueen": {
+      "simx": "divergent branch! PC=0x1800001b0 并 abort",
+      "rtlsim": "FAILED! - 1（期望 92，实际 82）",
+      "evidence": "2.2 simx 的分支检查同样要求 warp 活跃 lane 一致；nqueen 的 while(i>=0) 回溯循环天然发散。",
+      "conclusion": "2.2 simx 发散限制 + RTL 发散执行错误；3.0 双驱动通过。",
+      "confidence": "高"
+    },
+    "shoc-sort": {
+      "simx": "卡死",
+      "rtlsim": "VX_schedule.sv:435 stall timeout 断言（cycle 1026535）",
+      "evidence": "同 2.3：RTL stall timeout；barrier 位于统一循环；NUM_BARRIERS=8 实验未改变（在 2.3 上验证，2.2 同源）。",
+      "conclusion": "2.2 调度/RTL 死锁；3.0 通过。",
+      "confidence": "中"
+    },
+    "btree": {
+      "simx": "卡死",
+      "rtlsim": "VX_schedule.sv:435 stall timeout 断言（cycle 426271）",
+      "evidence": "同 shoc-sort；work-group=16，barrier 在统一 for(height) 循环。",
+      "conclusion": "2.2 调度/RTL 死锁；3.0 通过。",
+      "confidence": "中"
+    },
+    "ventus-softmax": {
+      "simx": "rows 结果错误（实际值=e_j/e_max）；chw 结果错误或卡死",
+      "rtlsim": "PASS（64/32 位）",
+      "evidence": "与 2.3 相同的数值规律（实际最大值=1.0）；同一 ELF 在 rtlsim 正确。",
+      "conclusion": "2.2 simx 执行/FP 语义 bug；测试有效。",
+      "confidence": "高"
+    },
+    "cfd": {
+      "simx": "Segmentation fault",
+      "rtlsim": "Segmentation fault",
+      "evidence": "gdb 栈同 2.3（clEnqueueCopyBuffer -> PoCL Vortex -> NULL）。",
+      "conclusion": "2.2 PoCL CopyBuffer 路径 NULL 回调。",
+      "confidence": "高"
+    },
+    "copybuf": {
+      "simx": "Segmentation fault",
+      "rtlsim": "Segmentation fault",
+      "evidence": "gdb 栈与 cfd 相同（test_basic_copy -> clEnqueueCopyBuffer）。",
+      "conclusion": "同一 PoCL/runtime CopyBuffer bug。",
+      "confidence": "高"
+    },
+    "rodinia-srad-v2": {
+      "simx": "64 位 924 errors（差异约 2–5%）；32 位 PASS",
+      "rtlsim": "64 位 PASS；32 位未单独复测（调度器无关）",
+      "evidence": "同一配置 32 位 simx 与 64 位 rtlsim 均正确；错误为小范围浮点偏差（如 1.379436 vs 1.412673）。",
+      "conclusion": "2.2 64 位 simx 的 FPU/指令模型 bug；测试有效。",
+      "confidence": "高（对照充分；具体指令未定位）"
+    },
+    "nw": {
+      "simx": "32 位 908 errors（局部恒定偏移）；64 位 PASS",
+      "rtlsim": "32 位 PASS；64 位未单独复测",
+      "evidence": "32 位 rtlsim 正确、64 位 simx 正确；错误呈现区域恒定偏移（如 expected=-32 vs actual=-40），像 DP 递推中的系统性偏差。",
+      "conclusion": "2.2 32 位 simx 的整数/DP 执行 bug；测试有效。",
+      "confidence": "高（对照充分；具体指令未定位）"
     }
   }
 }
