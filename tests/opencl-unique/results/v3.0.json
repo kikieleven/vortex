@@ -1,0 +1,2222 @@
+{
+  "suite": "opencl-unique",
+  "vortex_version": "3.0",
+  "commit": "3460fa819",
+  "date": "2026-11-26",
+  "xlen_builds": {
+    "64": "build/",
+    "32": "build32/"
+  },
+  "drivers": [
+    "simx",
+    "rtlsim"
+  ],
+  "tests_count": 84,
+  "active_count": 76,
+  "exclude": [
+    "atomicreduce",
+    "copybuf",
+    "image_copy",
+    "image_hwsw",
+    "image_int",
+    "parboil-histo",
+    "parboil-mri-gridding",
+    "parboil-tpacf"
+  ],
+  "results": {
+    "saxpy": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 52704,
+          "cycles": 142380
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 52704,
+          "cycles": 143338
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 48588,
+          "cycles": 132364
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 48588,
+          "cycles": 133270
+        }
+      }
+    },
+    "oclprintf": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 6098,
+          "cycles": 19596
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 6098,
+          "cycles": 34248
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 5853,
+          "cycles": 18691
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 5853,
+          "cycles": 32352
+        }
+      }
+    },
+    "blueporcelain-vectoradd": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 11616,
+          "cycles": 34606
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 11616,
+          "cycles": 34350
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 11940,
+          "cycles": 35128
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 11940,
+          "cycles": 35018
+        }
+      }
+    },
+    "blueporcelain-vectordiv": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 3872,
+          "cycles": 11963
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 3872,
+          "cycles": 11943
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 3852,
+          "cycles": 11701
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 3852,
+          "cycles": 11652
+        }
+      }
+    },
+    "blueporcelain-triangle-area": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 5632,
+          "cycles": 18826
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 5632,
+          "cycles": 18802
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 5612,
+          "cycles": 17581
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 5612,
+          "cycles": 17521
+        }
+      }
+    },
+    "blueporcelain-vectormma": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 7776,
+          "cycles": 22509
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 7776,
+          "cycles": 21953
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 7756,
+          "cycles": 22437
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 7756,
+          "cycles": 21882
+        }
+      }
+    },
+    "blueporcelain-matrix-transpose": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 238048,
+          "cycles": 645678
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 238048,
+          "cycles": 649343
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 225740,
+          "cycles": 621098
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 225740,
+          "cycles": 621504
+        }
+      }
+    },
+    "blueporcelain-bitonic-sort": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 31730,
+          "cycles": 108515
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 31730,
+          "cycles": 108983
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 30142,
+          "cycles": 104731
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 30142,
+          "cycles": 105193
+        }
+      }
+    },
+    "blueporcelain-dot-product": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 32960,
+          "cycles": 107113
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 32960,
+          "cycles": 107348
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 29836,
+          "cycles": 99598
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 29836,
+          "cycles": 99796
+        }
+      }
+    },
+    "blueporcelain-reduction-max": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 48506,
+          "cycles": 169216
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 48506,
+          "cycles": 169523
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 46694,
+          "cycles": 165399
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 46694,
+          "cycles": 165854
+        }
+      }
+    },
+    "blueporcelain-nbody": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 79072,
+          "cycles": 296369
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 79072,
+          "cycles": 296457
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 74700,
+          "cycles": 257500
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 74700,
+          "cycles": 258248
+        }
+      }
+    },
+    "blueporcelain-matrix-inversion": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2449088,
+          "cycles": 6641950
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2449088,
+          "cycles": 6628948
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2454976,
+          "cycles": 6641065
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2454976,
+          "cycles": 6628170
+        }
+      }
+    },
+    "blueporcelain-nqueen": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 37797,
+          "cycles": 265559
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 37797,
+          "cycles": 265227
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 37461,
+          "cycles": 264749
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 37461,
+          "cycles": 264408
+        }
+      }
+    },
+    "blueporcelain-nn-op-adaptiveavgpool2d": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 553,
+          "cycles": 4759
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 553,
+          "cycles": 4679
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 534,
+          "cycles": 4629
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 534,
+          "cycles": 4559
+        }
+      }
+    },
+    "blueporcelain-nn-op-batchnorm3d": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1332,
+          "cycles": 7475
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1332,
+          "cycles": 7331
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1305,
+          "cycles": 7106
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1305,
+          "cycles": 6969
+        }
+      }
+    },
+    "blueporcelain-nn-op-conv3d": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 5928,
+          "cycles": 19735
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 5928,
+          "cycles": 19681
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 5712,
+          "cycles": 19127
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 5712,
+          "cycles": 19133
+        }
+      }
+    },
+    "blueporcelain-nn-op-dropout": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1786,
+          "cycles": 5599
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1786,
+          "cycles": 5507
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1766,
+          "cycles": 5488
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1766,
+          "cycles": 5408
+        }
+      }
+    },
+    "blueporcelain-nn-op-embedding": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2528,
+          "cycles": 7554
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2528,
+          "cycles": 7497
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2444,
+          "cycles": 7248
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2444,
+          "cycles": 7172
+        }
+      }
+    },
+    "blueporcelain-nn-op-gelu": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 3426,
+          "cycles": 11462
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 3426,
+          "cycles": 11431
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 3406,
+          "cycles": 10584
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 3406,
+          "cycles": 10475
+        }
+      }
+    },
+    "blueporcelain-nn-op-gru": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 6559,
+          "cycles": 44056
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 6559,
+          "cycles": 43683
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 6497,
+          "cycles": 42723
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 6497,
+          "cycles": 42288
+        }
+      }
+    },
+    "blueporcelain-nn-op-hardsigmoid": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1408,
+          "cycles": 4573
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1408,
+          "cycles": 4512
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1388,
+          "cycles": 4442
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1388,
+          "cycles": 4381
+        }
+      }
+    },
+    "blueporcelain-nn-op-hardswish": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1424,
+          "cycles": 4679
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1424,
+          "cycles": 4618
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1404,
+          "cycles": 4512
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1404,
+          "cycles": 4455
+        }
+      }
+    },
+    "blueporcelain-nn-op-layernorm": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 368,
+          "cycles": 4554
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 368,
+          "cycles": 4480
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 363,
+          "cycles": 4378
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 363,
+          "cycles": 4305
+        }
+      }
+    },
+    "blueporcelain-nn-op-leakyrelu": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1452,
+          "cycles": 4757
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1452,
+          "cycles": 4692
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1432,
+          "cycles": 4730
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1432,
+          "cycles": 4666
+        }
+      }
+    },
+    "blueporcelain-nn-op-linear": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 980,
+          "cycles": 3218
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 980,
+          "cycles": 3148
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 944,
+          "cycles": 3117
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 944,
+          "cycles": 3050
+        }
+      }
+    },
+    "blueporcelain-nn-op-lstm": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 9624,
+          "cycles": 65427
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 9624,
+          "cycles": 64987
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 9550,
+          "cycles": 63091
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 9550,
+          "cycles": 62552
+        }
+      }
+    },
+    "blueporcelain-nn-op-sigmoid": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2792,
+          "cycles": 9388
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2792,
+          "cycles": 9331
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2772,
+          "cycles": 8715
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2772,
+          "cycles": 8616
+        }
+      }
+    },
+    "blueporcelain-nn-op-silu": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2792,
+          "cycles": 9388
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2792,
+          "cycles": 9331
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2772,
+          "cycles": 8715
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2772,
+          "cycles": 8616
+        }
+      }
+    },
+    "blueporcelain-nn-op-tanh": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2776,
+          "cycles": 9460
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2776,
+          "cycles": 9406
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 2756,
+          "cycles": 8747
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 2756,
+          "cycles": 8684
+        }
+      }
+    },
+    "polybench-3mm": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 229536,
+          "cycles": 590236
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 229536,
+          "cycles": 590513
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 228708,
+          "cycles": 588690
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 228708,
+          "cycles": 588632
+        }
+      }
+    },
+    "polybench-syr2k": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 134880,
+          "cycles": 347253
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 134880,
+          "cycles": 347410
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 134860,
+          "cycles": 330482
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 134860,
+          "cycles": 330492
+        }
+      }
+    },
+    "polybench-covariance": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 332480,
+          "cycles": 940900
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 332480,
+          "cycles": 949505
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 332388,
+          "cycles": 952483
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 332388,
+          "cycles": 965053
+        }
+      }
+    },
+    "polybench-doitgen": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 111312,
+          "cycles": 307727
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 111312,
+          "cycles": 306258
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 110400,
+          "cycles": 305168
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 110400,
+          "cycles": 303697
+        }
+      }
+    },
+    "polybench-gemver": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 100576,
+          "cycles": 273741
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 100576,
+          "cycles": 276293
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 100484,
+          "cycles": 268953
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 100484,
+          "cycles": 269346
+        }
+      }
+    },
+    "polybench-lu": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 87076,
+          "cycles": 258966
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 87076,
+          "cycles": 257001
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 86436,
+          "cycles": 256736
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 86436,
+          "cycles": 254705
+        }
+      }
+    },
+    "polybench-adi": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 53784,
+          "cycles": 201521
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 53784,
+          "cycles": 195945
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 51984,
+          "cycles": 190732
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 51984,
+          "cycles": 185712
+        }
+      }
+    },
+    "shoc-bfs": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 307742,
+          "cycles": 1030970
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 307742,
+          "cycles": 1042634
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 310186,
+          "cycles": 1027028
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 310186,
+          "cycles": 1037074
+        }
+      }
+    },
+    "shoc-triad": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 55776,
+          "cycles": 159056
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 55776,
+          "cycles": 159581
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 55756,
+          "cycles": 157965
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 55756,
+          "cycles": 157981
+        }
+      }
+    },
+    "shoc-md5hash": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 723000,
+          "cycles": 1674442
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 723000,
+          "cycles": 1667773
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 722596,
+          "cycles": 1674415
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 722596,
+          "cycles": 1666552
+        }
+      }
+    },
+    "shoc-md": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 960626,
+          "cycles": 4386686
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 960626,
+          "cycles": 4384273
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 862558,
+          "cycles": 3750678
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 862558,
+          "cycles": 3755695
+        }
+      }
+    },
+    "shoc-reduction": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 60192,
+          "cycles": 205612
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 60192,
+          "cycles": 206017
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 57100,
+          "cycles": 192427
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 57100,
+          "cycles": 192977
+        }
+      }
+    },
+    "shoc-scan": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 52364,
+          "cycles": 162847
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 52364,
+          "cycles": 163962
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 49380,
+          "cycles": 154278
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 49380,
+          "cycles": 154862
+        }
+      }
+    },
+    "shoc-sort": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 4200384,
+          "cycles": 13297657
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 4200384,
+          "cycles": 13414001
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 3999424,
+          "cycles": 12792295
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 3999424,
+          "cycles": 12873837
+        }
+      }
+    },
+    "shoc-spmv": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 8084,
+          "cycles": 23499
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 8084,
+          "cycles": 23460
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 7808,
+          "cycles": 22884
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 7808,
+          "cycles": 22820
+        }
+      }
+    },
+    "shoc-stencil2d": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 190144,
+          "cycles": 574564
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 190144,
+          "cycles": 574783
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 161304,
+          "cycles": 462021
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 161304,
+          "cycles": 461053
+        }
+      }
+    },
+    "parboil-spmv": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 9120,
+          "cycles": 26791
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 9120,
+          "cycles": 26741
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 9100,
+          "cycles": 26746
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 9100,
+          "cycles": 26705
+        }
+      }
+    },
+    "parboil-mri-q": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 406816,
+          "cycles": 1339892
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 406816,
+          "cycles": 1338314
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 17392717,
+          "cycles": 48519298
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 17392717,
+          "cycles": 48516343
+        }
+      }
+    },
+    "parboil-lbm": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 127344,
+          "cycles": 425624
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 127344,
+          "cycles": 430334
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 126132,
+          "cycles": 376683
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 126132,
+          "cycles": 377134
+        }
+      }
+    },
+    "parboil-sad": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 4961284,
+          "cycles": 11942214
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 4961284,
+          "cycles": 11868928
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 4662552,
+          "cycles": 11335809
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 4662552,
+          "cycles": 11140684
+        }
+      }
+    },
+    "rodinia-srad-v2": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 231084,
+          "cycles": 692355
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 231084,
+          "cycles": 692400
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 228988,
+          "cycles": 639989
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 228988,
+          "cycles": 638504
+        }
+      }
+    },
+    "rodinia-particlefilter-single": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 50067,
+          "cycles": 169734
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 50067,
+          "cycles": 180781
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 309367,
+          "cycles": 980390
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 309367,
+          "cycles": 990828
+        }
+      }
+    },
+    "rodinia-leukocyte": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 10854053,
+          "cycles": 34799337
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 10854053,
+          "cycles": 34979766
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 10900780,
+          "cycles": 34554282
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 10900780,
+          "cycles": 34733099
+        }
+      }
+    },
+    "ventus-conv": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 439094,
+          "cycles": 1244352
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 439094,
+          "cycles": 1249368
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 389666,
+          "cycles": 1134120
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 389666,
+          "cycles": 1137685
+        }
+      }
+    },
+    "ventus-gemm": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 49888,
+          "cycles": 131187
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 49888,
+          "cycles": 129880
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 50380,
+          "cycles": 132730
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 50380,
+          "cycles": 131987
+        }
+      }
+    },
+    "ventus-softmax": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 25972,
+          "cycles": 132845
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 25972,
+          "cycles": 132621
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 25948,
+          "cycles": 122501
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 25948,
+          "cycles": 122298
+        }
+      }
+    },
+    "ventus-relu": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 8832,
+          "cycles": 24028
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 8832,
+          "cycles": 23891
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 8812,
+          "cycles": 23879
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 8812,
+          "cycles": 23838
+        }
+      }
+    },
+    "ventus-batchnorm2d": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 10752,
+          "cycles": 31934
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 10752,
+          "cycles": 31435
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 10732,
+          "cycles": 29625
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 10732,
+          "cycles": 29373
+        }
+      }
+    },
+    "ventus-pool2d": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 10980,
+          "cycles": 32902
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 10980,
+          "cycles": 32764
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 10472,
+          "cycles": 31726
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 10472,
+          "cycles": 31590
+        }
+      }
+    },
+    "ventus-conv-fused": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 413664,
+          "cycles": 1183346
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 413664,
+          "cycles": 1187617
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 385100,
+          "cycles": 1118933
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 385100,
+          "cycles": 1122133
+        }
+      }
+    },
+    "ventus-conv-bn": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 448480,
+          "cycles": 1266657
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 448480,
+          "cycles": 1271389
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 399052,
+          "cycles": 1153162
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 399052,
+          "cycles": 1157346
+        }
+      }
+    },
+    "ventus-gemm-fused": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 52322,
+          "cycles": 138561
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 52322,
+          "cycles": 138255
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 52302,
+          "cycles": 138483
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 52302,
+          "cycles": 138373
+        }
+      }
+    },
+    "ventus-mnist": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 156295,
+          "cycles": 427167
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 156295,
+          "cycles": 428046
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 156255,
+          "cycles": 427166
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 156255,
+          "cycles": 428011
+        }
+      }
+    },
+    "ventus-mnist-conv-small": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 188007,
+          "cycles": 556865
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 188007,
+          "cycles": 560867
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 167085,
+          "cycles": 510010
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 167085,
+          "cycles": 513552
+        }
+      }
+    },
+    "spmv": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 152684,
+          "cycles": 421383
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 152684,
+          "cycles": 422682
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 152664,
+          "cycles": 422263
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 152664,
+          "cycles": 423569
+        }
+      }
+    },
+    "nearn": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1243304,
+          "cycles": 3684627
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1243304,
+          "cycles": 3726041
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1243284,
+          "cycles": 3625722
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1243284,
+          "cycles": 3635758
+        }
+      }
+    },
+    "kmeans": {
+      "64": {
+        "simx": {
+          "status": "PASS"
+        },
+        "rtlsim": {
+          "status": "PASS"
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS"
+        },
+        "rtlsim": {
+          "status": "PASS"
+        }
+      }
+    },
+    "blackscholes": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 106375,
+          "cycles": 366146
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 106375,
+          "cycles": 366460
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 822735,
+          "cycles": 2263879
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 822735,
+          "cycles": 2264436
+        }
+      }
+    },
+    "nw": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 26882,
+          "cycles": 89388
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 26882,
+          "cycles": 89598
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 23584,
+          "cycles": 79341
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 23584,
+          "cycles": 79525
+        }
+      }
+    },
+    "hotspot3D": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 30656,
+          "cycles": 87234
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 30656,
+          "cycles": 87257
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 30104,
+          "cycles": 79538
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 30104,
+          "cycles": 79224
+        }
+      }
+    },
+    "srad": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 201820,
+          "cycles": 624897
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 201820,
+          "cycles": 625797
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 1000248,
+          "cycles": 2746412
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 1000248,
+          "cycles": 2745463
+        }
+      }
+    },
+    "backprop": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 6228,
+          "cycles": 19602
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 6228,
+          "cycles": 19557
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 6118,
+          "cycles": 19067
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 6118,
+          "cycles": 18974
+        }
+      }
+    },
+    "btree": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 44110,
+          "cycles": 162761
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 44110,
+          "cycles": 163515
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 46780,
+          "cycles": 177638
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 46780,
+          "cycles": 178188
+        }
+      }
+    },
+    "cfd": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 52166,
+          "cycles": 231412
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 52166,
+          "cycles": 230708
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 49732,
+          "cycles": 186758
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 49732,
+          "cycles": 185142
+        }
+      }
+    },
+    "dwt2d": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 4020,
+          "cycles": 11888
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 4020,
+          "cycles": 11721
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 3768,
+          "cycles": 11248
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 3768,
+          "cycles": 11103
+        }
+      }
+    },
+    "myocyte": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 320395,
+          "cycles": 3436315
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 320395,
+          "cycles": 3415954
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 4719501,
+          "cycles": 42713181
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 4719501,
+          "cycles": 42695943
+        }
+      }
+    },
+    "heartwall": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 62231,
+          "cycles": 163197
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 62231,
+          "cycles": 163538
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 56080,
+          "cycles": 147994
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 56080,
+          "cycles": 148877
+        }
+      }
+    }
+  },
+  "special_results": {
+    "parboil-tpacf": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 452773,
+          "cycles": 1332285
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 452773,
+          "cycles": 1337641
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 445086,
+          "cycles": 1311471
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 445086,
+          "cycles": 1315337
+        }
+      }
+    },
+    "parboil-histo": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 629960,
+          "cycles": 1871894
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 629960,
+          "cycles": 2043962
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 535320,
+          "cycles": 1645780
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 535320,
+          "cycles": 1799708
+        }
+      }
+    },
+    "parboil-mri-gridding": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 371628,
+          "cycles": 1352709
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 371628,
+          "cycles": 1349492
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 361797,
+          "cycles": 1247205
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 361797,
+          "cycles": 1243858
+        }
+      }
+    },
+    "atomicreduce": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 44512,
+          "cycles": 121888
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 44512,
+          "cycles": 122826
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 44492,
+          "cycles": 121901
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 44492,
+          "cycles": 122839
+        }
+      }
+    },
+    "copybuf": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 0,
+          "cycles": 0
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 0,
+          "cycles": 0
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 0,
+          "cycles": 0
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 0,
+          "cycles": 0
+        }
+      }
+    },
+    "image_copy": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 23328,
+          "cycles": 66698
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 23328,
+          "cycles": 67162
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 23308,
+          "cycles": 66668
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 23308,
+          "cycles": 66681
+        }
+      }
+    },
+    "image_int": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 14944,
+          "cycles": 42628
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 14944,
+          "cycles": 42535
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 14924,
+          "cycles": 42517
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 14924,
+          "cycles": 42428
+        }
+      }
+    },
+    "image_hwsw": {
+      "64": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 934976,
+          "cycles": 2776079
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 934976,
+          "cycles": 2790314
+        }
+      },
+      "32": {
+        "simx": {
+          "status": "PASS",
+          "instrs": 932552,
+          "cycles": 2688433
+        },
+        "rtlsim": {
+          "status": "PASS",
+          "instrs": 932552,
+          "cycles": 2690867
+        }
+      }
+    }
+  },
+  "excluded_results": {
+    "parboil-tpacf": "运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE",
+    "parboil-histo": "运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE",
+    "parboil-mri-gridding": "运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE",
+    "atomicreduce": "运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE",
+    "copybuf": "只测试 buffer copy API，不启动 kernel（instrs=0）",
+    "image_copy": "需要 image-enabled PoCL",
+    "image_int": "需要 image-enabled PoCL",
+    "image_hwsw": "需要 image-enabled PoCL 与 TEX/RTU"
+  },
+  "notes": [
+    "TESTS 的 84 个用例名称与顺序与 2.2/2.3 移植版本完全一致。",
+    "默认扫描 76 个；64/32 位的 simx 与 rtlsim 均 PASS。",
+    "8 个 EXCLUDE 用例已手工补跑：原子类带 CONFIGS=-DVX_CFG_EXT_A_ENABLE，image/copybuf 直接用默认配置，均 PASS。",
+    "3.0 的 simx/rtlsim instrs 在确定性用例上完全一致（原子用例除外；本套 EXCLUDE 中 copybuf 的 instrs=0）。"
+  ]
+}

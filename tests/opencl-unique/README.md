@@ -81,9 +81,10 @@ make -C tests/opencl-unique/parboil-histo run-simx \
 
 ## 验证结果（XLEN=64 和 XLEN=32）
 
-在本仓库的 `build/`（XLEN=64）和 `build32/`（XLEN=32）上：
+详细逐用例结果见 [`RESULTS.md`](RESULTS.md)，机器可读数据见
+[`results/v3.0.json`](results/v3.0.json)。摘要（2026-11-26 复测）：
 
-- 默认扫描：**76/76 PASSED**；
+- 默认扫描：**76/76 PASSED**（simx/rtlsim × 64/32 四种组合）；
 - 同一配置下 simx 与 rtlsim 的 `PERF: instrs=` **76/76 完全一致**；
 - 聚合目标 `make -C tests/opencl-unique run-simx` 在两个树中均通过；
 - 8 个 EXCLUDE 用例手工补跑全部通过（原子用例带 `EXT_A`，image 三类，`copybuf`），
