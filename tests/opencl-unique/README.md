@@ -89,6 +89,8 @@ make -C tests/opencl-unique/parboil-histo run-simx \
 - 聚合目标 `make -C tests/opencl-unique run-simx` 在两个树中均通过；
 - 8 个 EXCLUDE 用例手工补跑全部通过（原子用例带 `EXT_A`，image 三类，`copybuf`），
   simx/rtlsim 指令数也一致。
+- **分类结果**：本版本没有被判定为有问题的测试；8 个 EXCLUDE 均为特殊配置且已通过
+  （详见 RESULTS.md）。
 
 ## 已知限制
 

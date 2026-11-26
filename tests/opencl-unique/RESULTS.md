@@ -1,10 +1,10 @@
 # Vortex 3.0 — opencl-unique 测试结果
 
-- 版本：Vortex 3.0，commit `3460fa819`（分支 `vortex-3.0`）
+- 版本：Vortex 3.0，commit `3460fa819`
 - 日期：2026-11-26
 - 构建：`build/`（XLEN=64）、`build32/`（XLEN=32）；驱动：simx、rtlsim
 - 用例：TESTS 84，默认扫描 76，EXCLUDE 8
-- 用例名与顺序与 2.2/2.3 移植版本**完全一致**（84/84）
+- 用例名与顺序与 3.0 的 `tests/opencl-unique` 完全一致（84/84）
 
 ## 默认扫描结果
 
@@ -87,18 +87,22 @@
 | `ventus-relu` | PASS | PASS | PASS | PASS | 8832/8832 | 8812/8812 |
 | `ventus-softmax` | PASS | PASS | PASS | PASS | 25972/25972 | 25948/25948 |
 
-## EXCLUDE 用例（已手工补跑）
+## 特殊配置用例（已验证通过，不属于问题）
 
-| case | 原因 | 64 simx | 64 rtlsim | 32 simx | 32 rtlsim |
+| case | 说明 | 64 simx | 64 rtlsim | 32 simx | 32 rtlsim |
 |---|---|---|---|---|---|
-| `atomicreduce` | 运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE | PASS | PASS | PASS | PASS |
+| `atomicreduce` | 运行需 CONFIGS=-DVX_CFG_EXT_A_ENABLE | PASS | PASS | PASS | PASS |
 | `copybuf` | 只测试 buffer copy API，不启动 kernel（instrs=0） | PASS | PASS | PASS | PASS |
-| `image_copy` | 需要 image-enabled PoCL | PASS | PASS | PASS | PASS |
-| `image_hwsw` | 需要 image-enabled PoCL 与 TEX/RTU | PASS | PASS | PASS | PASS |
-| `image_int` | 需要 image-enabled PoCL | PASS | PASS | PASS | PASS |
-| `parboil-histo` | 运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE | PASS | PASS | PASS | PASS |
-| `parboil-mri-gridding` | 运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE | PASS | PASS | PASS | PASS |
-| `parboil-tpacf` | 运行时需 CONFIGS=-DVX_CFG_EXT_A_ENABLE | PASS | PASS | PASS | PASS |
+| `image_copy` | 需要 image-enabled PoCL（3.0 支持） | PASS | PASS | PASS | PASS |
+| `image_hwsw` | 需要 image-enabled PoCL 与 TEX/RTU（3.0 支持） | PASS | PASS | PASS | PASS |
+| `image_int` | 需要 image-enabled PoCL（3.0 支持） | PASS | PASS | PASS | PASS |
+| `parboil-histo` | 运行需 CONFIGS=-DVX_CFG_EXT_A_ENABLE | PASS | PASS | PASS | PASS |
+| `parboil-mri-gridding` | 运行需 CONFIGS=-DVX_CFG_EXT_A_ENABLE | PASS | PASS | PASS | PASS |
+| `parboil-tpacf` | 运行需 EXT_A（实测默认也能通过，移植不含原子内建） | PASS | PASS | PASS | PASS |
+
+## 本版本有问题的测试
+
+无。本版本没有被判定为有问题的测试。
 
 ## 结论与边界
 
@@ -106,6 +110,6 @@
 - 默认扫描 76 个；64/32 位的 simx 与 rtlsim 均 PASS。
 - 8 个 EXCLUDE 用例已手工补跑：原子类带 CONFIGS=-DVX_CFG_EXT_A_ENABLE，image/copybuf 直接用默认配置，均 PASS。
 - 3.0 的 simx/rtlsim instrs 在确定性用例上完全一致（原子用例除外；本套 EXCLUDE 中 copybuf 的 instrs=0）。
-- 默认扫描中确定性用例的 simx/rtlsim `instrs` 完全一致；原子用例（本套全部在 EXCLUDE 中）不要求相等，本次实测也一致。
+- 本版本没有被判定为有问题的测试；8 个 EXCLUDE 均为特殊配置且已全部通过。
 
 原始数据：`results/v3.0.json`；每个用例的完整日志未入库。
